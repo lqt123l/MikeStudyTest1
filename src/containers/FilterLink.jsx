@@ -1,32 +1,16 @@
-import React, { Component } from 'react';
-import Link from './Link';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 
-class FilterLink extends Component {
+const FilterLink = ({ filter, children }) => (
+    <NavLink
+        to={filter === 'all' ? '' : filter}
+        activeStyle={{
+            textDecoration: "none",
+            color: "black"
+        }}
+    >
+        {children}
+    </NavLink>
+);
 
-    // componentDidMount() {
-    //     this.unsubscribe = this.props.store.subscribe(() => this.forceUpdate())
-    // }
-
-    // componentWillUnmount() {
-    //     this.unsubscribe();
-    // }
-    render() {
-        const props = this.props;
-        const state = props.store.getState();
-        return (
-            <Link
-                active={props.filter === state.visibilityFilter}
-                onClick={() =>
-                    props.store.dispatch({
-                        type: 'SET_VISIBILITY_FILTER',
-                        filter: props.filter
-                    })
-                }
-            >
-                {props.children}
-            </Link>
-        );
-    }
-}
-
-export default FilterLink;;
+export default FilterLink;

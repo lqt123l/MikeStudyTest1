@@ -1,23 +1,31 @@
-import React from 'react';
+import React, { Component } from 'react';
+import {addTodo} from './../actions/index';
+import { connect } from 'react-redux';
 
+class AddTodo extends Component {
 
-const AddTodo = ({  onAddClick }) => {
+    render() {
 
-    let input = '';
+        let input = '';
 
-    return (
-        <div>
-            <input ref={(node) => { input = node }}></input>
+        return (
             <div>
-                <button onClick={() => {
-                    onAddClick(input.value)
-                    input.value = '';
-                }}>
-                    Add Todo</button>
-            </div>
-
-        </div>
-    );
+                <input ref={(node) => { input = node }}></input>
+                <div>
+                    <button
+                        onClick={() => {
+                            this.props.dispatch(addTodo(input.value));
+                            input.value = '';
+                        }
+                        }>
+                        Add Todo
+                    </button>
+                </div>
+            </div >
+        );
+    }
 }
 
-export default AddTodo;
+
+export default connect()(AddTodo);
+
